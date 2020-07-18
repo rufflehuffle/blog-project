@@ -1,6 +1,21 @@
 <h1><%= @article.title %></h1>
 
+<p>
+    <% if @article.image.exists? %>
+        <%= image_tag @article.image.url %>
+    <% end %>
+</p>
+
 <p><%= @article.body %></p>
+
+<p>Article posted <%= distance_of_time_in_words(DateTime.now, @article.created_at) %> ago</p>
+
+<p>
+  Tags:
+  <% @article.tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag) %>
+  <% end %>
+</p>
 
 <%= link_to 'Edit article', edit_article_path(@article) %>
 
