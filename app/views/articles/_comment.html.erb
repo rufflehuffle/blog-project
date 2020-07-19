@@ -1,4 +1,4 @@
-<div>
+<div class="border mb-1">
   <h4>Comment by <%= comment.author_name %></h4>
   <p>Posted <%= distance_of_time_in_words(DateTime.now, comment.created_at) %> ago</p>
   <p class="comment"><%= comment.body %></p>

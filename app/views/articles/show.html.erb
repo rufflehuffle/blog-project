@@ -1,31 +1,35 @@
 <h1><%= @article.title %></h1>
 
-<p>
-    <% if @article.image.exists? %>
-        <%= image_tag @article.image.url %>
+<div class="article border">
+    <p>
+        <% if @article.image.exists? %>
+            <%= image_tag @article.image.url %>
+        <% end %>
+    </p>
+
+    <p><%= @article.body %></p>
+
+    <p>Article posted <%= distance_of_time_in_words(DateTime.now, @article.created_at) %> ago</p>
+
+    <p>
+    Tags:
+    <% @article.tags.each do |tag| %>
+        <%= link_to tag.name, tag_path(tag) %>
     <% end %>
-</p>
+    </p>
 
-<p><%= @article.body %></p>
+    <% if logged_in? %>
+        <%= link_to 'Edit article', edit_article_path(@article) %>
 
-<p>Article posted <%= distance_of_time_in_words(DateTime.now, @article.created_at) %> ago</p>
+        <%= link_to 'Delete article', article_path(@article), method: :delete, data: {confirm: 'Really delete the article?'} %>
+    <% end %>
+</div>
 
-<p>
-  Tags:
-  <% @article.tags.each do |tag| %>
-    <%= link_to tag.name, tag_path(tag) %>
-  <% end %>
-</p>
+<div class="comments border">
+    <h3>Comments (<%= @article.comments.size %>)</h3>
+    <%= render partial: 'articles/comment', collection: @article.comments %>
 
-<% if logged_in? %>
-    <%= link_to 'Edit article', edit_article_path(@article) %>
-
-    <%= link_to 'Delete article', article_path(@article), method: :delete, data: {confirm: 'Really delete the article?'} %>
-<% end %>
-
-<h3>Comments (<%= @article.comments.size %>)</h3>
-<%= render partial: 'articles/comment', collection: @article.comments %>
-
-<%= render partial: 'comments/form' %>
+    <%= render partial: 'comments/form' %>
+</div>
 
 <%= link_to '<< Back to articles list', articles_path %>
