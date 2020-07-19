@@ -5,10 +5,17 @@ class ArticlesController < ApplicationController
 
     def index
         @articles = Article.all
+        @articles = @articles.each { |article| article.view_count = 0 if article.view_count.nil? }
+        @most_popular_articles = @articles.sort_by { |article| article.view_count }.reverse.take(10)
     end
 
     def show
         @article = Article.find(params[:id])
+
+        @article.view_count = 0 if @article.view_count.nil?
+        @article.view_count += 1
+
+        @article.save
 
         @comment = Comment.new
         @comment.article_id = @article.id

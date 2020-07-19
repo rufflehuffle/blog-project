@@ -4,26 +4,27 @@
     <li><%= error %></li>
   <% end %>
   </ul>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </p>
-  <p>
-    <%= f.label :tag_list, 'tags' %><br />
-    <%= f.text_field :tag_list %>
-  </p>
-  <p>
+  <div class="form-group">
+    <%= f.label :title, 'Article Title' %><br />
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body, 'Article Body' %><br />
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :tag_list, 'Tags' %><br />
+    <%= f.text_field :tag_list, class: 'form-control' %>
+  </div>
+  <div class="form-group">
     <% if @article.image.exists? %>
         <%= image_tag @article.image.url %><br/>
     <% end %>
     <%= f.label :image, "Attach a New Image" %><br />
-    <%= f.file_field :image %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+    <%= f.file_field :image, class: 'form-control-file' %>
+  </div>
+  <div class="form-group">
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  </div>
+  <%= link_to '<< Back to articles list', articles_path, class: 'btn btn-primary' %>
 <% end %>

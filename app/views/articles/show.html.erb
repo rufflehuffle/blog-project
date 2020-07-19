@@ -11,6 +11,8 @@
 
     <p>Article posted <%= distance_of_time_in_words(DateTime.now, @article.created_at) %> ago</p>
 
+    <p>This article has been viewed <%= @article.view_count %> time(s)</p>
+
     <p>
     Tags:
     <% @article.tags.each do |tag| %>
@@ -19,9 +21,9 @@
     </p>
 
     <% if logged_in? %>
-        <%= link_to 'Edit article', edit_article_path(@article) %>
+        <%= link_to 'Edit article', edit_article_path(@article), class: 'btn btn-primary' %>
 
-        <%= link_to 'Delete article', article_path(@article), method: :delete, data: {confirm: 'Really delete the article?'} %>
+        <%= link_to 'Delete article', article_path(@article), class: 'btn btn-primary', method: :delete, data: {confirm: 'Really delete the article?'} %>
     <% end %>
 </div>
 
@@ -32,4 +34,4 @@
     <%= render partial: 'comments/form' %>
 </div>
 
-<%= link_to '<< Back to articles list', articles_path %>
+<%= link_to '<< Back to articles list', articles_path, class: 'btn btn-primary' %>

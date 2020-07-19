@@ -1,12 +1,23 @@
-<h1>All Articles</h1>
+<h1>Articles</h1>
 
-<ul id="articles">
+<h2>Most Popular Articles</h2>
+<ol id="most-popular-articles" class="list-group">
+    <% @most_popular_articles.each do |article| %>
+        <li class="list-group-item">
+            <%= link_to "#{article.title} - #{article.view_count} view(s)", article_path(article), class: 'article_title' %>
+        </li>
+    <% end %>
+</ol>
+
+<h2>All Articles</h2>
+<ul id="articles" class="list-group">
     <% @articles.each do |article| %>
-        <li>
+        <li class="list-group-item">
             <%= link_to article.title, article_path(article), class: 'article_title' %>
         </li>
     <% end %>
-    <% if logged_in? %>
-        <%= link_to 'Create a new article', new_article_path, class: 'new_article' %>
-    <% end %>
 </ul>
+
+<% if logged_in? %>
+    <%= link_to 'Create a new article', new_article_path, class: 'new_article btn btn-primary' %>
+<% end %>
